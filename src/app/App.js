@@ -1,12 +1,11 @@
 import React from 'react';
 
-import UkuleleChord from './app/ukulele-chord/ukulele-chord';
+import UkuleleChord from './components/ukulele-chord/ukulele-chord';
 import { Navbar, Nav } from 'react-bootstrap';
 
 function App() {
   return (
-    <div>
-
+    <>
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="#home">MusicPedia</Navbar.Brand>
         <Nav className="mr-auto">
@@ -15,9 +14,8 @@ function App() {
            <Nav.Link href="#pricing">Guitarra</Nav.Link>*/}
         </Nav>
       </Navbar>
-    
       <UkuleleChord/>
-    </div>
+    </>
   );
 }
 
