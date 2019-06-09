@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "113971b712b6f4a281cde309c505d1c3",
+    "revision": "947a2a46451b7c93a14a293db2c42c34",
     "url": "/music-pd/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/music-pd/static/css/2.22a7d4ef.chunk.css"
   },
   {
-    "revision": "2f817ca1f2af816f7a99",
+    "revision": "e5e0949d2fecf0c03669",
     "url": "/music-pd/static/css/main.be768325.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/music-pd/static/js/2.5b11a382.chunk.js"
   },
   {
-    "revision": "2f817ca1f2af816f7a99",
-    "url": "/music-pd/static/js/main.beffa60d.chunk.js"
+    "revision": "e5e0949d2fecf0c03669",
+    "url": "/music-pd/static/js/main.1b9797ea.chunk.js"
   },
   {
     "revision": "9e52066d1348578c5483",
