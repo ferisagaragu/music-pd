@@ -4,7 +4,6 @@ import ListUkuleleChord from './list-ukulele-chord';
 import { C, D, E, F, G, A, B } from '../../core/consts/ukulele-chords-map';
 import { Container,Row } from 'react-bootstrap';
 import { ReactComponent as UkeleleIcon } from './../../res/ukulele/ukelele.svg';
-import { ReactComponent as GuitarIcon } from './../../res/guitar/guitar.svg';
 
 const UkuleleChord = () => (
     <div>
@@ -41,19 +40,6 @@ const UkuleleChord = () => (
 
         </Container>
         
-        
-        {
-            /*<h3>Do mayor otras</h3>
-            <ListUkuleleChord render={C.higher.normal}></ListUkuleleChord>
-            <h3>Do 7</h3>
-            <ListUkuleleChord render={C.higher._7}></ListUkuleleChord>
-            <h3>Do 9</h3>
-            <ListUkuleleChord render={C.higher._9}></ListUkuleleChord>
-            <h3>Do 6</h3>
-            <ListUkuleleChord render={C.higher._6}></ListUkuleleChord>
-            <h3>Do 5</h3>
-            <ListUkuleleChord render={C.higher._5}></ListUkuleleChord>*/
-        }
     </div>
 );
 

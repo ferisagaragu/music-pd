@@ -1,6 +1,7 @@
 import React from 'react';
 
 import UkuleleChord from './components/ukulele-chord/ukulele-chord';
+import GuitarChord from './components/guitar-chord/guitar-chord';
 import { Navbar, Nav } from 'react-bootstrap';
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
            <Nav.Link href="#pricing">Guitarra</Nav.Link>*/}
         </Nav>
       </Navbar>
-      <UkuleleChord/>
+      <UkuleleChord />
+      <GuitarChord />
     </>
   );
 }

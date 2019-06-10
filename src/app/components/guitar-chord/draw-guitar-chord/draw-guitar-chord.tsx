@@ -1,21 +1,24 @@
-import React, {Component} from 'react';
-import { YELLOW, ORANGE, GREEN, PURPLE, PINK, BLUE, RED } from '../../../core/consts/chord-colors';
-import './draw-ukulele-chord.css';
+import React, {Component, ReactElement} from 'react';
+import { COLORS } from '../../../core/consts/chord-colors';
+import GuitarInterface from '../../../core/interfaces/guitar-draw.interface';
+import './draw-guitar-chord.css';
 
-class DrawUkuleleChord extends Component {
+class DrawGuitarChord extends Component<GuitarInterface,{}> {
 
     //Posiciones
-    getVerticalPosition = index => {
+    private getVerticalPosition = (index: number): number => {
         switch (index) {
             case 0: return 0;
-            case 1: return 20;
-            case 2: return 40;
-            case 3: return 60;
+            case 1: return 12;
+            case 2: return 24;
+            case 3: return 36;
+            case 4: return 48;
+            case 5: return 60;
             default: return 0;
         }
     }
 
-    setChordPosition = (chord,index) => {
+    private setChordPosition = (chord: number, index: number): string => {
         switch (chord) {
             case 1: return `translate(${this.getVerticalPosition(index)},0)`;
             case 2: return `translate(${this.getVerticalPosition(index)},20)`;
@@ -25,79 +28,70 @@ class DrawUkuleleChord extends Component {
         }
     }
 
-    //Tamaños
-    getSize = (size,base) => {
-        if (size) {
-            switch (size) {
-                case 'x2': 
-                case 'X2': 
-                case 'md': return base * 2;
-                case 'x3':
-                case 'X3':
-                case 'lg': return base * 3;
-                case 'x4':
-                case 'X4':
-                case 'xl': return base * 4;
-                default: return base;
-            }
+    private setNutPosition = (index: number): number => {
+        switch (index) {
+            case 1: return 0;
+            case 2: return 20;
+            case 3: return 40;
+            case 4: return 60;
+            default: return -60;
         }
-        return base;
     }
 
-    getWidth = size => {
+    private setNutTextPosition = (index: number): number => {
+        switch (index) {
+            case 1: return 4;
+            case 2: return 24;
+            case 3: return 44;
+            case 4: return 64;
+            default: return -60;
+        } 
+    }
+
+    //Tamaños
+    private getSize = (size: string, base: number): number => {
+        switch (size) {
+            case 'x2': 
+            case 'X2': 
+            case 'md': return base * 2;
+            case 'x3':
+            case 'X3':
+            case 'lg': return base * 3;
+            case 'x4':
+            case 'X4':
+            case 'xl': return base * 4;
+            default: return base;
+        }
+    }
+
+    private getWidth = (size: string): number => {
         const base = 90;
         return this.getSize(size,base); 
     }
 
-    getHeight = size => {
+    private getHeight = (size: string): number => {
         const base = 134;
         return this.getSize(size,base); 
     }
 
     //Dedos
-    getChordColor = () => {
+    private getChordColor = (): string =>  {
         const rand = Math.trunc(0 + Math.random() * (7 - 0));
-        let outColor = null;
-
-        switch(rand) {
-            case 0:
-                outColor = YELLOW;
-            break;
-
-            case 1:
-                outColor = ORANGE;
-            break;
-
-            case 2:
-                outColor = GREEN;
-            break;
-
-            case 3:
-                outColor = PURPLE;
-            break;
-
-            case 4:
-                outColor = PINK;
-            break;
-
-            case 5:
-                outColor = BLUE;
-            break;
-            
-            case 6:
-                outColor = RED;
-            break;    
-
-            default: 
-                outColor = '#fff';
+        switch (rand) {
+            case 0: return COLORS.YELLOW;
+            case 1: return COLORS.ORANGE;
+            case 2: return COLORS.GREEN;
+            case 3: return COLORS.PURPLE;
+            case 4: return COLORS.PINK;
+            case 5: return COLORS.BLUE;
+            case 6: return COLORS.RED;
+            default: return '#fff';
         }
-        
-        return outColor;
     }
 
-    getChords = (chords,fingers,nut) => {
+    private getChords = (chords: number[], fingers: number[]): ReactElement[] => {
         if (!chords) {
-            return;
+            return [<></>];
         }
 
         return chords.map( (chord,index) => (
@@ -119,13 +113,40 @@ class DrawUkuleleChord extends Component {
         ));
     }
 
-    //Cuerdas al aire
-    getOpenChord = chords => {
-        if (!chords) {
-            return;
+    private getNut = (nut: number, nutText: string): ReactElement => {
+        if (!nut) {
+            return <></>;
         }
 
-        return chords.map( (chord,index) => (
+        return (
+            <g>
+                <line 
+                    className="nut" 
+                    x1="0" 
+                    x2="60" 
+                    y1={this.setNutPosition(nut)} 
+                    y2={this.setNutPosition(nut)} 
+                    stroke={this.getChordColor()} 
+                />
+                
+                <text 
+                    className="text-chord" 
+                    y={this.setNutTextPosition(nut)} 
+                    x={30}
+                >
+                    {nutText}
+                </text>
+            </g>
+        );
+    }
+
+    //Cuerdas al aire
+    private getOpenChord = (chords: number[]): ReactElement[] => {
+        if (!chords) {
+            return [<></>];
+        }
+
+        return chords.map((chord: number, index: number) => (
             <> {
                 chord === 0 ? 
                     <circle 
@@ -140,12 +161,12 @@ class DrawUkuleleChord extends Component {
     }
 
     //Notas
-    getNotes = notes => {
+    private getNotes = (notes: string[]): ReactElement[] => {
         if (!notes) {
-            return;
+            return [<></>];
         }
 
-        return notes.map( (note,index) => (
+        return notes.map((note: string, index: number) => (
             <text 
                 className="text-notes"
                 x={this.getVerticalPosition(index)} 
@@ -155,9 +176,9 @@ class DrawUkuleleChord extends Component {
         ));
     }
 
-    render() {
-        const { title, position, chords, fingers, notes, size } = this.props;
-
+    public render(): ReactElement {
+        const { title, position, chords, fingers, nut, nutText, notes, size } = this.props;
+        
         return (
             <svg className="base" width={this.getWidth(size)} height={this.getHeight(size)} viewBox="0 0 84 134" xmlns="http://www.w3.org/2000/svg">
                 <title>{title}</title>    
@@ -179,8 +200,10 @@ class DrawUkuleleChord extends Component {
                     {/*Lineas rectas |*/}
                     <g transform="translate(0,2)">
                         <rect className="sheet" height="80" width="2" x="0" />
-                        <rect className="sheet" height="80" width="2" x="20" />
-                        <rect className="sheet" height="80" width="2" x="40" />
+                        <rect className="sheet" height="80" width="2" x="12" />
+                        <rect className="sheet" height="80" width="2" x="24" />
+                        <rect className="sheet" height="80" width="2" x="36" />
+                        <rect className="sheet" height="80" width="2" x="48" />
                         <rect className="sheet" height="80" width="2" x="60" />
                     </g>
 
@@ -195,12 +218,13 @@ class DrawUkuleleChord extends Component {
 
                     {/*Cuerdas al aire*/}
                     <g transform="translate(1,-5)">
-                        {this.getOpenChord(chords)}
+                        {nut === 0 ? this.getOpenChord(chords) : <></>}
                     </g>
 
                     {/*Acordes*/}
                     <g transform="translate(1,13)">
                         {this.getChords(chords,fingers)}
+                        {this.getNut(nut,nutText)}
                     </g>
 
                     {/*Notas*/}
@@ -213,4 +237,4 @@ class DrawUkuleleChord extends Component {
     }
 }
 
-export default DrawUkuleleChord;
+export default DrawGuitarChord;
