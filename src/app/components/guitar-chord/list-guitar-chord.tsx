@@ -50,7 +50,7 @@ class ListGuitarChord extends Component<GuitarListInterface,{}> {
     
     } 
 
-    render(): ReactElement {
+    public render(): ReactElement {
         const { data } = this.props;
 
         return(
